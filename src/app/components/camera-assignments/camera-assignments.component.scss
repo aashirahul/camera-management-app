@@ -1,0 +1,27 @@
+@import '../../variables.scss';
+
+:host {
+    .container {
+        padding: 20px;
+
+        .title {
+            font-size: 20pt;
+        }
+
+        .icon {
+            color: $gray;
+            cursor: pointer;
+            margin-right: 5px;
+            font-size: 16pt;
+        }
+
+        table {
+            margin-top: 25px;
+            width: 100%;
+        }
+
+        td {
+            width: 33%;
+        }
+    }
+}

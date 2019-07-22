@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="title">Create New Assignment</div>
+  <div fxLayout="row">
+    <div class="text" fxLayout="column" fxLayoutAlign="center center">
+      Map
+    </div>
+    <div fxLayout="column">
+      <mat-form-field>
+        <mat-label>Select Camera</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let camera of cameras" [value]="camera.Id">
+            {{camera.DeviceNo}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="text" fxLayout="column" fxLayoutAlign="center center">
+      to
+    </div>
+    <div fxLayout="column">
+      <mat-form-field>
+        <mat-label>Select Vehicle</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.Id">
+            {{vehicle.Name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="footer" fxLayout="row">
+    <div fxLayout="column" fxFlex></div>
+    <div class="button-container" fxLayout="column"><button mat-raised-button (click)="cancel()">Cancel</button></div>
+    <div class="button-container" fxLayout="column"><button mat-raised-button color="primary" (click)="save()">Save</button></div>
+  </div>
+</div>

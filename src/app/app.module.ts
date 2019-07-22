@@ -1,24 +1,43 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule } from '@angular/material';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
+import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatTableModule, MatTooltipModule, MatDialogModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
-
+import { BackendService } from './services/backend.service';
+import { MockBackendService } from './services/mock-backend.service';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './components/header/header.component';
+import { CameraAssignmentsComponent } from './components/camera-assignments/camera-assignments.component';
+import { NewAssignmentComponent } from './components/new-assignment/new-assignment.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    CameraAssignmentsComponent,
+    NewAssignmentComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    FlexLayoutModule,
     BrowserAnimationsModule,
     MatInputModule, 
     MatButtonModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule,
+    MatTooltipModule,
+    MatDialogModule,
+    InMemoryWebApiModule.forRoot(MockBackendService)
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    BackendService
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [NewAssignmentComponent]
 })
 export class AppModule { }

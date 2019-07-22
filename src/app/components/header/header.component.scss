@@ -1,0 +1,19 @@
+@import '../../variables.scss';
+
+:host {
+    .container {
+        $top-nav-height: 60px;
+
+     	background-color: white;
+        padding: 10px;
+        border-bottom: 1px solid $medium-gray;
+
+        .logo {
+            height: $top-nav-height;
+        }
+        
+        .app-name {
+            line-height: $top-nav-height;
+        }
+    }
+}

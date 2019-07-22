@@ -1,0 +1,19 @@
+@import '../../variables.scss';
+
+:host {
+    .container {
+        .title {
+            font-size: 20pt;
+        }
+        
+        .text {
+            padding: 0 10px;
+        }
+
+        .footer {
+            .button-container {
+                margin-left: 10px;
+            }
+        }
+    }
+}
