@@ -5,24 +5,24 @@
   </div>
   <div class="data-container">
     <table mat-table [dataSource]="assignments" class="mat-elevation-z8">
-    <ng-container matColumnDef="cameraId">
-      <th mat-header-cell *matHeaderCellDef> Camera Device # </th>
-      <td mat-cell *matCellDef="let element"> {{getCamera(element.CameraId)?.DeviceNo}} </td>
-    </ng-container>
-    <ng-container matColumnDef="vehicleId">
-      <th mat-header-cell *matHeaderCellDef> Vehicle Name </th>
-      <td mat-cell *matCellDef="let element"> {{getVehicle(element.VehicleId)?.Name}} </td>
-    </ng-container>
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Actions </th>
-      <td mat-cell *matCellDef="let element">
-        <mat-icon class="icon" aria-hidden="false" matTooltip="Edit Camera Assignment" aria-label="Edit Camera Assignment">edit</mat-icon>
-        <mat-icon class="icon" aria-hidden="false" matTooltip="Delete Camera Assignment" aria-label="Delete Camera Assignment" (click)="deleteAssignment(element)">delete</mat-icon>
-      </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+      <ng-container matColumnDef="cameraId">
+        <th mat-header-cell *matHeaderCellDef> Camera Device # </th>
+        <td mat-cell *matCellDef="let element"> {{getCamera(element.CameraId)?.DeviceNo}} </td>
+      </ng-container>
+      <ng-container matColumnDef="vehicleId">
+        <th mat-header-cell *matHeaderCellDef> Vehicle Name </th>
+        <td mat-cell *matCellDef="let element"> {{getVehicle(element.VehicleId)?.Name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon class="icon" aria-hidden="false" matTooltip="Edit Camera Assignment" aria-label="Edit Camera Assignment" (click)="editAssignment(element)">edit</mat-icon>
+          <mat-icon class="icon" aria-hidden="false" matTooltip="Delete Camera Assignment" aria-label="Delete Camera Assignment" (click)="deleteAssignment(element)">delete</mat-icon>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
 
 
   </div>

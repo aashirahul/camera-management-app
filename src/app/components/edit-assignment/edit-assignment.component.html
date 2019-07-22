@@ -1,21 +1,8 @@
 <div class="container">
-  <div class="title">Create New Assignment</div>
+  <div class="title">Edit Camera Assignment</div>
   <div fxLayout="row">
     <div class="text" fxLayout="column" fxLayoutAlign="center center">
-      Associate
-    </div>
-    <div fxLayout="column">
-      <mat-form-field>
-        <mat-label>Select Camera</mat-label>
-        <mat-select [(value)]="selectedCamera">
-          <mat-option *ngFor="let camera of cameras" [value]="camera.Id">
-            {{camera.DeviceNo}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="text" fxLayout="column" fxLayoutAlign="center center">
-      to
+      Associate camera {{getCamera(data.assignmentToEdit.CameraId)?.DeviceNo}} to
     </div>
     <div fxLayout="column">
       <mat-form-field>

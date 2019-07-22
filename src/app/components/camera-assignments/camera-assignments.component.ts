@@ -6,6 +6,7 @@ import { Vehicle } from '../../models/vehicle';
 import { Camera } from '../../models/camera';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NewAssignmentComponent } from '../new-assignment/new-assignment.component';
+import { EditAssignmentComponent } from '../edit-assignment/edit-assignment.component';
 
 @Component({
   selector: 'app-camera-assignments',
@@ -18,34 +19,38 @@ export class CameraAssignmentsComponent implements OnInit {
   vehicles: Vehicle[];
   cameras: Camera[];
 
-  constructor(private backendService: BackendService, public dialog: MatDialog) {}
+  constructor(private backendService: BackendService, public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.loadAssignments();
+  }
+
+  private loadAssignments() {
     this.backendService.getAssignments().subscribe((assignments) => {
       this.assignments = assignments as CameraAssignment[];
     });
   }
 
   getCamera(cameraId) {
-    if(!this.cameras) {
+    if (!this.cameras) {
       this.backendService.getCameras().subscribe((cameras) => {
         this.cameras = cameras;
       });
     }
 
-    if(this.cameras) {
+    if (this.cameras) {
       return this.cameras.find((camera) => camera.Id == cameraId);
     }
   }
 
   getVehicle(vehicleId) {
-    if(!this.vehicles) {
+    if (!this.vehicles) {
       this.backendService.getVehicles().subscribe((vehicles) => {
         this.vehicles = vehicles;
       });
     }
 
-    if(this.vehicles) {
+    if (this.vehicles) {
       return this.vehicles.find((vehicle) => vehicle.Id == vehicleId);
     }
   }
@@ -61,6 +66,23 @@ export class CameraAssignmentsComponent implements OnInit {
   newAssignment() {
     const dialogRef = this.dialog.open(NewAssignmentComponent, {
       width: '1000px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadAssignments();
+    });
+  }
+
+  editAssignment(cameraAssignment) {
+    const dialogRef = this.dialog.open(EditAssignmentComponent, {
+      width: '1000px',
+      data: {
+        assignmentToEdit: cameraAssignment
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadAssignments();
     });
   }
 }

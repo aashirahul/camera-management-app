@@ -12,20 +12,22 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CameraAssignmentsComponent } from './components/camera-assignments/camera-assignments.component';
 import { NewAssignmentComponent } from './components/new-assignment/new-assignment.component';
+import { EditAssignmentComponent } from './components/edit-assignment/edit-assignment.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     CameraAssignmentsComponent,
-    NewAssignmentComponent
+    NewAssignmentComponent,
+    EditAssignmentComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
-    MatInputModule, 
+    MatInputModule,
     MatButtonModule,
     MatSelectModule,
     MatIconModule,
@@ -38,6 +40,8 @@ import { NewAssignmentComponent } from './components/new-assignment/new-assignme
     BackendService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [NewAssignmentComponent]
+  entryComponents: [NewAssignmentComponent,
+    EditAssignmentComponent
+  ]
 })
 export class AppModule { }
