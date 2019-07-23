@@ -2,9 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
-import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatTableModule, MatTooltipModule, MatDialogModule } from '@angular/material';
+import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatTableModule, MatTooltipModule, MatDialogModule, MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { FormsModule } from '@angular/forms';
 
 import { BackendService } from './services/backend.service';
 import { MockBackendService } from './services/mock-backend.service';
@@ -34,6 +35,8 @@ import { EditAssignmentComponent } from './components/edit-assignment/edit-assig
     MatTableModule,
     MatTooltipModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
+    FormsModule,
     InMemoryWebApiModule.forRoot(MockBackendService)
   ],
   providers: [

@@ -14,10 +14,14 @@ import { EditAssignmentComponent } from '../edit-assignment/edit-assignment.comp
   styleUrls: ['./camera-assignments.component.scss']
 })
 export class CameraAssignmentsComponent implements OnInit {
+
   displayedColumns: string[] = ['cameraId', 'vehicleId', 'id'];
   assignments: CameraAssignment[];
+  filteredAssignments: CameraAssignment[];
   vehicles: Vehicle[];
   cameras: Camera[];
+  searchValue: string = "";
+  loadingProcessCount = 0;
 
   constructor(private backendService: BackendService, public dialog: MatDialog) { }
 
@@ -26,15 +30,20 @@ export class CameraAssignmentsComponent implements OnInit {
   }
 
   private loadAssignments() {
+    this.loadingProcessCount++;
     this.backendService.getAssignments().subscribe((assignments) => {
       this.assignments = assignments as CameraAssignment[];
+      this.filteredAssignments = this.assignments;
+      this.loadingProcessCount--;
     });
   }
 
   getCamera(cameraId) {
     if (!this.cameras) {
+      this.loadingProcessCount++;
       this.backendService.getCameras().subscribe((cameras) => {
         this.cameras = cameras;
+        this.loadingProcessCount--;
       });
     }
 
@@ -45,8 +54,10 @@ export class CameraAssignmentsComponent implements OnInit {
 
   getVehicle(vehicleId) {
     if (!this.vehicles) {
+      this.loadingProcessCount++;
       this.backendService.getVehicles().subscribe((vehicles) => {
         this.vehicles = vehicles;
+        this.loadingProcessCount--;
       });
     }
 
@@ -56,9 +67,12 @@ export class CameraAssignmentsComponent implements OnInit {
   }
 
   deleteAssignment(cameraAssignment) {
+    this.loadingProcessCount++;
     this.backendService.deleteAssignment(cameraAssignment).subscribe(() => {
       this.backendService.getAssignments().subscribe((assignments) => {
+        this.loadingProcessCount--;
         this.assignments = assignments as CameraAssignment[];
+        this.calculateFilteredAssignments();
       });
     });
   }
@@ -84,5 +98,16 @@ export class CameraAssignmentsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.loadAssignments();
     });
+  }
+
+  onKey(event: any) {
+    this.calculateFilteredAssignments();
+  }
+
+  private calculateFilteredAssignments() {
+    let filteredCameras = this.cameras.filter((camera) => camera.DeviceNo.toLowerCase().startsWith(this.searchValue.toLowerCase()));
+    let filteredVehicles = this.vehicles.filter((vehicle) => vehicle.Name.toLowerCase().startsWith(this.searchValue.toLowerCase()));
+
+    this.filteredAssignments = this.assignments.filter((assignment) => filteredCameras.find((camera) => camera.Id == assignment.CameraId) || filteredVehicles.find((vehicle) => vehicle.Id == assignment.VehicleId));
   }
 }

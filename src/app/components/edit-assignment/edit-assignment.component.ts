@@ -17,18 +17,24 @@ export class EditAssignmentComponent implements OnInit {
   selectedCamera: number;
   selectedVehicle: number;
   errorMessage: string;
+  loadingProcessCount = 0;
 
   constructor(private backendService: BackendService, public dialogRef: MatDialogRef<EditAssignmentComponent>, @Inject(MAT_DIALOG_DATA) private data) { }
 
   ngOnInit() {
+    this.loadingProcessCount++;
     this.backendService.getAssignments().subscribe((assignments) => {
       this.assignments = assignments as CameraAssignment[];
+      this.loadingProcessCount--;
     });
 
+    this.loadingProcessCount++;
     this.backendService.getCameras().subscribe((cameras) => {
       this.cameras = cameras;
+      this.loadingProcessCount--;
     });
 
+    this.loadingProcessCount++;
     this.backendService.getVehicles().subscribe((vehicles) => {
       this.vehicles = vehicles;
       let currentlyAssignedVehicle = this.vehicles.find((vehicle) => vehicle.Id == this.data.assignmentToEdit.VehicleId);
@@ -36,13 +42,16 @@ export class EditAssignmentComponent implements OnInit {
       if (currentlyAssignedVehicle != null) {
         this.selectedVehicle = currentlyAssignedVehicle.Id;
       }
+      this.loadingProcessCount--;
     });
   }
 
   getCamera(cameraId) {
     if (!this.cameras) {
+      this.loadingProcessCount++;
       this.backendService.getCameras().subscribe((cameras) => {
         this.cameras = cameras;
+        this.loadingProcessCount--;
       });
     }
 
@@ -80,7 +89,9 @@ export class EditAssignmentComponent implements OnInit {
         this.dialogRef.close();
       } else {
         this.data.assignmentToEdit.VehicleId = this.selectedVehicle;
+        this.loadingProcessCount++;
         this.backendService.updateAssignment(this.data.assignmentToEdit).subscribe(() => {
+          this.loadingProcessCount--;
           this.dialogRef.close();
         });
       }

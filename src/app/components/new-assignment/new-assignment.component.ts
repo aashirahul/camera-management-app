@@ -18,20 +18,27 @@ export class NewAssignmentComponent implements OnInit {
   selectedCamera: number;
   selectedVehicle: number;
   errorMessage: string;
+  loadingProcessCount = 0;
 
   constructor(private backendService: BackendService, public dialogRef: MatDialogRef<NewAssignmentComponent>) { }
 
   ngOnInit() {
+    this.loadingProcessCount++;
     this.backendService.getAssignments().subscribe((assignments) => {
       this.assignments = assignments as CameraAssignment[];
+      this.loadingProcessCount--;
     });
 
+    this.loadingProcessCount++;
     this.backendService.getCameras().subscribe((cameras) => {
       this.cameras = cameras;
+      this.loadingProcessCount--;
     });
 
+    this.loadingProcessCount++;
     this.backendService.getVehicles().subscribe((vehicles) => {
       this.vehicles = vehicles;
+      this.loadingProcessCount--;
     });
   }
 
@@ -51,7 +58,9 @@ export class NewAssignmentComponent implements OnInit {
         Deleted: false
       }
 
+      this.loadingProcessCount++;
       this.backendService.createAssignment(newCameraAssignment).subscribe(() => {
+        this.loadingProcessCount--;
         this.dialogRef.close();
       });
     }

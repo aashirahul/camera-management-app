@@ -1,11 +1,29 @@
 @import '../../variables.scss';
 
 :host {
-    .container {
-        padding: 20px;
+    .title {
+        margin-top: 20px;
+        font-size: 20pt;
+    }
 
-        .title {
-            font-size: 20pt;
+    .loading {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        z-index: 100;
+    }
+
+    .container {
+        padding: 30px;
+        margin: 20px;
+        border-radius: 6px;
+        background-color: $light-gray;
+
+        .new-assignment {
+            margin-left: 20px;
         }
 
         .icon {
@@ -16,8 +34,8 @@
         }
 
         table {
-            margin-top: 25px;
             width: 100%;
+            margin-top: 20px;
         }
 
         td {
